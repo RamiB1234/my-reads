@@ -1,5 +1,5 @@
 import React from 'react'
-// import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from './BooksAPI'
 import './App.css'
 
 // Components:
@@ -55,6 +55,25 @@ class BooksApp extends React.Component {
     books: preLoadedBooks
   }
 
+  moveBook = (title, newCategory) =>{
+
+    let currentBooks = this.state.books;
+
+    // Find index of book object using findIndex method.    
+    const bookIndex = currentBooks.findIndex((obj => obj.title === title));
+
+    // Update book's category.
+    currentBooks[bookIndex].category = newCategory;
+
+    // Update status:
+    this.setState({
+      books : currentBooks
+    })
+  }
+
+  componentDidMount(){
+    console.log(BooksAPI.getAll());
+  }
   render() {
     return (
       <div className="app">
@@ -86,9 +105,9 @@ class BooksApp extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
-                <BookList books={this.state.books} category='Currently Reading' />
-                <BookList books={this.state.books} category='Want to Read' />
-                <BookList books={this.state.books} category='Read' />
+                <BookList books={this.state.books} category='Currently Reading' moveBookCallback={this.moveBook} />
+                <BookList books={this.state.books} category='Want to Read' moveBookCallback={this.moveBook} />
+                <BookList books={this.state.books} category='Read'  moveBookCallback={this.moveBook} />
               </div>
             </div>
             <div className="open-search">

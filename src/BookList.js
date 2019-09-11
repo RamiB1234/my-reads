@@ -7,7 +7,7 @@ class BookList extends Component {
   render() {
     return (
       <div className="bookshelf">
-        <h2 className="bookshelf-title">Currently Reading</h2>
+        <h2 className="bookshelf-title">{this.props.category}</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
             {this.props.books
@@ -19,6 +19,8 @@ class BookList extends Component {
                       title={book.title}
                       authors={book.authors}
                       imgUrl={book.imgUrl}
+                      category = {this.props.category}
+                      moveBookCallback={this.props.moveBookCallback}
                     />
                   </li>
                 );
