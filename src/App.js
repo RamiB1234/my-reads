@@ -18,15 +18,16 @@ class BooksApp extends React.Component {
     books: []
   }
 
-  moveBook = (title, newCategory) =>{
+  moveBook = (title, newShelf) =>{
+    console.log('y');
 
     let currentBooks = this.state.books;
 
     // Find index of book object using findIndex method.    
     const bookIndex = currentBooks.findIndex((obj => obj.title === title));
 
-    // Update book's category.
-    currentBooks[bookIndex].category = newCategory;
+    // Update book's shelf.
+    currentBooks[bookIndex].shelf = newShelf;
 
     // Update status:
     this.setState({

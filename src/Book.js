@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 
 class Book extends Component{
-  updateCategory = (e) =>{
+  updateShelf = (e) =>{
     this.props.moveBookCallback(this.props.title, e.target.value);
   }
     render(){
@@ -10,7 +10,7 @@ class Book extends Component{
             <div className="book-top">
               <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url(${this.props.imgUrl})` }}></div>
               <div className="book-shelf-changer">
-                <select onChange={this.updateCategory.bind(this)} value={this.props.shelf}>
+                <select onChange={this.updateShelf.bind(this)} value={this.props.shelf}>
                   <option value="move" disabled>Move to...</option>
                   <option value="currentlyReading">Currently Reading</option>
                   <option value="wantToRead">Want to Read</option>
