@@ -10,11 +10,11 @@ class Book extends Component{
             <div className="book-top">
               <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url(${this.props.imgUrl})` }}></div>
               <div className="book-shelf-changer">
-                <select onChange={this.updateCategory.bind(this)} value={this.props.category}>
+                <select onChange={this.updateCategory.bind(this)} value={this.props.shelf}>
                   <option value="move" disabled>Move to...</option>
-                  <option value="Currently Reading">Currently Reading</option>
-                  <option value="Want to Read">Want to Read</option>
-                  <option value="Read">Read</option>
+                  <option value="currentlyReading">Currently Reading</option>
+                  <option value="wantToRead">Want to Read</option>
+                  <option value="read">Read</option>
                   <option value="none">None</option>
                 </select>
               </div>
