@@ -1,35 +1,40 @@
-import React, { Component } from "react";
+import React, {Component} from 'react'
+import {Link} from 'react-router-dom'
 
-// Components:
-import Book from "./Book";
+// UI Components:
+import Shelf from './Shelf'
 
-class BookList extends Component {
-  render() {
-    return (
-      <div className="bookshelf">
-        <h2 className="bookshelf-title">{this.props.shelf}</h2>
-        <div className="bookshelf-books">
-          <ol className="books-grid">
-            {this.props.books
-              .filter(book => book.shelf === this.props.shelf)
-              .map(book => {
-                return (
-                  <li key={book.id}>
-                    <Book
-                      title={book.title}
-                      authors={book.authors}
-                      imgUrl={book.imgUrl}
-                      shelf = {this.props.shelf}
-                      moveBookCallback={this.props.moveBookCallback}
-                    />
-                  </li>
-                );
-              })}
-          </ol>
-        </div>
-      </div>
-    );
-  }
+class BookList extends Component{
+    render(){
+        return(
+            <div className="list-books">
+            <div className="list-books-title">
+              <h1>MyReads</h1>
+            </div>
+            <div className="list-books-content">
+              <div>
+                <Shelf books={this.props.books} 
+                shelf='currentlyReading' 
+                shelfFriendlyName='Currently Reading'
+                moveBookCallback={this.props.moveBookCallback} />
+
+                <Shelf books={this.props.books} 
+                shelf='wantToRead'
+                shelfFriendlyName='Want to Read'
+                moveBookCallback={this.props.moveBookCallback} />
+
+                <Shelf books={this.props.books}
+                 shelf='read' 
+                 shelfFriendlyName='Read'
+                moveBookCallback={this.props.moveBookCallback} />
+              </div>
+            </div>
+            <div className="open-search">
+            <Link to ='/search' >Search</Link>
+            </div>
+          </div>
+        )
+    }
 }
 
-export default BookList;
+export default BookList
