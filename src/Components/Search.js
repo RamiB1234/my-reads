@@ -28,6 +28,7 @@ class Search extends Component {
             shelf: this.getBookLocalShelf(b.id),
             imgUrl: b.imageLinks == null ? 
             './images/noImage.jpg'
+            /* showing placeholder image for results that has no cover */
             : b.imageLinks.thumbnail
           };
           this.setState(prevState => ({
@@ -39,6 +40,7 @@ class Search extends Component {
   };
 
   getBookLocalShelf = bookId => {
+    // If book avilable locally, return its shelf, otherwise return 'none'
     const localBook = this.props.currentBooks.filter(b => b.id === bookId);
     if (localBook.length > 0) {
       return localBook[0].shelf;
@@ -85,6 +87,7 @@ class Search extends Component {
               className="close-search"
               to="/"
               onClick={() => {
+                // Reload books from server when going back to book list:
                 this.props.loadBooksHandler();
               }}
             >

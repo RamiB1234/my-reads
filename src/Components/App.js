@@ -49,6 +49,7 @@ class BooksApp extends React.Component {
           authors : b.authors,
           shelf : b.shelf,
           imgUrl : b.imageLinks == null ? 
+          /* showing placeholder image for results that has no cover */
           './images/noImage.jpg' : b.imageLinks.thumbnail
         }
         this.setState((prevState)=>({
