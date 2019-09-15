@@ -1,114 +1,128 @@
-import React, {Component} from 'react'
-import {Link} from 'react-router-dom'
-import * as BooksAPI from './utilities/BooksAPI'
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import * as BooksAPI from "./utilities/BooksAPI";
 
 // UI Components:
-import Shelf from './Shelf'
+import Shelf from "./Shelf";
 
-class Search extends Component{
-    state={
-        query : '',
-        foundBooks : []
-    }
+class Search extends Component {
+  state = {
+    query: "",
+    foundBooks: []
+  };
 
-    searchBooks = (query) => {
-        BooksAPI.search(query).then(result =>{           
-            // Only if result is defined and more than 0:
-            if(result && result.length>0){
-                result.forEach( (b) =>{
-                    const foundBook = {
-                        id : b.id,
-                        title: b.title,
-                        authors : b.authors,
-                        shelf : this.getBookLocalShelf(b.id),
-                        imgUrl : b.imageLinks.thumbnail
-                      }
-                      this.setState((prevState)=>({
-                        foundBooks : prevState.foundBooks.concat(foundBook)
-                      }))
-                  })
-            }
-            })
+  searchBooks = query => {
+    //Reset found book state:
+    this.setState({
+      foundBooks: []
+    });
 
-    }
-
-    getBookLocalShelf = (bookId) =>{
-      const localBook = this.props.currentBooks.filter(b => b.id === bookId)
-      if(localBook.length> 0){
-        return localBook[0].shelf;
+    BooksAPI.search(query).then(result => {
+      // Only if result is defined and more than 0:
+      if (result && result.length > 0) {
+        result.forEach(b => {
+          const foundBook = {
+            id: b.id,
+            title: b.title,
+            authors: b.authors,
+            shelf: this.getBookLocalShelf(b.id),
+            imgUrl: b.imageLinks == null ? 
+            './images/noImage.jpg'
+            : b.imageLinks.thumbnail
+          };
+          this.setState(prevState => ({
+            foundBooks: prevState.foundBooks.concat(foundBook)
+          }));
+        });
       }
-      else{
-        return 'none';
-      }
+    });
+  };
+
+  getBookLocalShelf = bookId => {
+    const localBook = this.props.currentBooks.filter(b => b.id === bookId);
+    if (localBook.length > 0) {
+      return localBook[0].shelf;
+    } else {
+      return "none";
     }
+  };
 
-    changeQuery = (query) => {
+  changeQuery = query => {
+    // Update query in state
+    this.setState(() => ({
+      query: query
+    }));
 
-        //Reset found book state:
-        this.setState({
-            foundBooks : []
-        })
-        // Search books:
-        this.searchBooks(query);
+    // Search books:
+    this.searchBooks(query);
+  };
 
-        // Update query in state
-        this.setState(() => ({
-            query: query
-        }))
-    }
+  moveBook = (id, newShelf) => {
+    let currentBooks = this.state.foundBooks;
 
-    moveBook = (id, newShelf) =>{
+    // Find index of book object using findIndex method:
+    const bookIndex = currentBooks.findIndex(obj => obj.id === id);
 
-      let currentBooks = this.state.foundBooks;
-  
-      // Find index of book object using findIndex method:    
-      const bookIndex = currentBooks.findIndex((obj => obj.id === id));
-  
-      // Update book's shelf:
-      currentBooks[bookIndex].shelf = newShelf;
-  
-      // Update shelf on server:
-  
-      BooksAPI.update(currentBooks[bookIndex] , newShelf);
-      
-      // Update status:
-      this.setState({
-        foundBooks : currentBooks
-      })
-    }
+    // Update book's shelf:
+    currentBooks[bookIndex].shelf = newShelf;
 
-    render(){
-        return (
-            <div>
-            <div className="search-books">
-            <div className="search-books-bar">
-             <Link className="close-search" to ='/' onClick={()=>{this.props.loadBooksHandler()}}>Home</Link>
-              <div className="search-books-input-wrapper">
-                <input type="text" 
+    // Update shelf on server:
+
+    BooksAPI.update(currentBooks[bookIndex], newShelf);
+
+    // Update status:
+    this.setState({
+      foundBooks: currentBooks
+    });
+  };
+
+  render() {
+    return (
+      <div>
+        <div className="search-books">
+          <div className="search-books-bar">
+            <Link
+              className="close-search"
+              to="/"
+              onClick={() => {
+                this.props.loadBooksHandler();
+              }}
+            >
+              Home
+            </Link>
+            <div className="search-books-input-wrapper">
+              <input
+                type="text"
                 placeholder="Search by title or author"
-                value= {this.state.query} onChange={(event)=>{this.changeQuery(event.target.value)}}
-                />
-              </div>
-            </div>
-          </div><br/><br/><br/>
-          <div className="list-books">
-          <div className="list-books-content">
-              <div>
-              { // Only render if there's result:
-
-                (this.state.foundBooks.length > 0 && (
-                <Shelf books={this.state.foundBooks} 
-                shelfFriendlyName='Search Result'
-                moveBookCallback={this.moveBook} />
-              ))}
-              </div>
+                value={this.state.query}
+                onChange={event => {
+                  this.changeQuery(event.target.value);
+                }}
+              />
             </div>
           </div>
+        </div>
+        <br />
+        <br />
+        <br />
+        <div className="list-books">
+          <div className="list-books-content">
+            <div>
+              {// Only render if there's result:
 
+              this.state.foundBooks.length > 0 && (
+                <Shelf
+                  books={this.state.foundBooks}
+                  shelfFriendlyName="Search Result"
+                  moveBookCallback={this.moveBook}
+                />
+              )}
             </div>
-
-        )
-    }
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default Search;
