@@ -48,7 +48,8 @@ class BooksApp extends React.Component {
           title: b.title,
           authors : b.authors,
           shelf : b.shelf,
-          imgUrl : b.imageLinks.thumbnail
+          imgUrl : b.imageLinks == null ? 
+          './images/noImage.jpg' : b.imageLinks.thumbnail
         }
         this.setState((prevState)=>({
           books : prevState.books.concat(newBook)
