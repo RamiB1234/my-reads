@@ -11,15 +11,15 @@ class Shelf extends Component {
         <div className="bookshelf-books">
           <ol className="books-grid">
             {this.props.books
-              .filter(book => book.shelf === this.props.shelf)
               .map(book => {
                 return (
                   <li key={book.id}>
                     <Book
+                      id={book.id}
                       title={book.title}
                       authors={book.authors}
                       imgUrl={book.imgUrl}
-                      shelf = {this.props.shelf}
+                      shelf = {book.shelf}
                       moveBookCallback={this.props.moveBookCallback}
                     />
                   </li>

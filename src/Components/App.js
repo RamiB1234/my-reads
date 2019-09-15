@@ -13,16 +13,19 @@ class BooksApp extends React.Component {
     books: []
   }
 
-  moveBook = (title, newShelf) =>{
+  moveBook = (id, newShelf) =>{
 
     let currentBooks = this.state.books;
 
-    // Find index of book object using findIndex method.    
-    const bookIndex = currentBooks.findIndex((obj => obj.title === title));
+    // Find index of book object using findIndex method:    
+    const bookIndex = currentBooks.findIndex((obj => obj.id === id));
 
-    // Update book's shelf.
+    // Update book's shelf:
     currentBooks[bookIndex].shelf = newShelf;
 
+    // Update shelf on server:
+
+    BooksAPI.update(currentBooks[bookIndex] , newShelf);
     // Update status:
     this.setState({
       books : currentBooks
@@ -30,8 +33,16 @@ class BooksApp extends React.Component {
   }
 
   componentDidMount(){
+    this.loadBooksFromServer();
+  }
+
+  loadBooksFromServer = () =>{
+    //Reset book state:
+    this.setState({
+      books: []
+    })
     BooksAPI.getAll().then(result =>{
-      result.map((b) =>{
+      result.forEach( (b) =>{
         const newBook = {
           id : b.id,
           title: b.title,
@@ -52,7 +63,10 @@ class BooksApp extends React.Component {
             <BookList books= {this.state.books} moveBookCallback = {this.moveBook} />
       )} />
       <Route path='/search' render={() => (
-            <Search />
+            <Search
+            moveBookCallback = {this.moveBook}
+            currentBooks={this.state.books}
+            loadBooksHandler={this.loadBooksFromServer} />
       )} />
       </div>
     )

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 
 class Book extends Component{
   updateShelf = (e) =>{
-    this.props.moveBookCallback(this.props.title, e.target.value);
+    this.props.moveBookCallback(this.props.id, e.target.value);
   }
     render(){
         return(

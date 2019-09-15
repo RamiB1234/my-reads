@@ -13,18 +13,15 @@ class BookList extends Component{
             </div>
             <div className="list-books-content">
               <div>
-                <Shelf books={this.props.books} 
-                shelf='currentlyReading' 
+                <Shelf books={this.props.books.filter(book => book.shelf === 'currentlyReading' )} 
                 shelfFriendlyName='Currently Reading'
                 moveBookCallback={this.props.moveBookCallback} />
 
-                <Shelf books={this.props.books} 
-                shelf='wantToRead'
+                <Shelf books={this.props.books.filter(book => book.shelf === 'wantToRead' )} 
                 shelfFriendlyName='Want to Read'
                 moveBookCallback={this.props.moveBookCallback} />
 
-                <Shelf books={this.props.books}
-                 shelf='read' 
+                <Shelf books={this.props.books.filter(book => book.shelf === 'read' )} 
                  shelfFriendlyName='Read'
                 moveBookCallback={this.props.moveBookCallback} />
               </div>
