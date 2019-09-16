@@ -12,30 +12,25 @@ class Search extends Component {
   };
 
   searchBooks = query => {
-    //Reset found book state:
-    this.setState({
-      foundBooks: []
-    });
-
+    let resultArray = [];
     BooksAPI.search(query).then(result => {
+      
       // Only if result is defined and more than 0:
       if (result && result.length > 0) {
-        result.forEach(b => {
-          const foundBook = {
-            id: b.id,
-            title: b.title,
-            authors: b.authors,
-            shelf: this.getBookLocalShelf(b.id),
-            imgUrl: b.imageLinks == null ? 
-            './images/noImage.jpg'
-            /* showing placeholder image for results that has no cover */
-            : b.imageLinks.thumbnail
-          };
-          this.setState(prevState => ({
-            foundBooks: prevState.foundBooks.concat(foundBook)
-          }));
-        });
+        resultArray = result.map(b => ({
+          id: b.id,
+          title: b.title,
+          authors: b.authors,
+          shelf: this.getBookLocalShelf(b.id),
+          // showing placeholder image for results that has no cover
+          imgUrl: b.imageLinks == null ? 
+          './images/noImage.jpg'
+          : b.imageLinks.thumbnail
+        }));
       }
+      this.setState(() => ({
+        foundBooks: resultArray
+      }));
     });
   };
 
@@ -49,14 +44,14 @@ class Search extends Component {
     }
   };
 
-  changeQuery = query => {
+  changeQuery = query => {  
+    // Search books:
+    this.searchBooks(query)
+
     // Update query in state
     this.setState(() => ({
       query: query
     }));
-
-    // Search books:
-    this.searchBooks(query);
   };
 
   moveBook = (id, newShelf) => {
