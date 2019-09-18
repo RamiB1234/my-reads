@@ -11,11 +11,11 @@ In MyReads app the user have a virtual book library where he/she can move the bo
 - Want to Read
 - Read
 
-Under each book there's a green arrow, if you click it a least of shelves will appear. Once you click on any shelf thr book automatically moves to the desired shelf.
+Under each book there's a green arrow, if you click on it a listt of shelves will appear. Once you select any shelf, the book automatically moves to the desired shelf.
 
-There's also a green plus sign on the bottom right corner. If you click on it, it'll take you to a search page where you can search for additional books. The books you find will be able to change shelfs as well. Once you asign a shelf to a book in the search page, it'll appear in you library page. If you want to remove a book from your library,simply change its shelf to 'none'. 
+There's also a green plus sign on the bottom right corner. If you click on it, it'll take you to a search page where you can search for additional books. The books you find will be able to change shelves as well. Once you asign a shelf to a book in the search page, it'll reflect on you library page. If you want to remove a book from your library,simply change its shelf to 'none'. 
 
-Books shelf state are maintained if you navigate to another page or refresh the page.
+Book shelf states are maintained if you navigate to another page or refresh the page.
 
 # Technology Used
 
