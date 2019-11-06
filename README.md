@@ -4,6 +4,10 @@ This is my submission for the first project in "React" Udacity course. The start
 
 The project task was to transform the static page into a dynamic page.
 
+# Live Demo
+
+To test the last build of the app, click on this [link](https://ramib1234.github.io/my-reads/)
+
 # MyReads App Features
 
 In MyReads app the user have a virtual book library where he/she can move the books between shelves. there are three shelves as follows:
