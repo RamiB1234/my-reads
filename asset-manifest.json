@@ -1,0 +1,14 @@
+{
+  "main.css": "/my-reads/static/css/main.eae7a4e2.chunk.css",
+  "main.js": "/my-reads/static/js/main.ac412295.chunk.js",
+  "main.js.map": "/my-reads/static/js/main.ac412295.chunk.js.map",
+  "static/js/1.45b0cd3d.chunk.js": "/my-reads/static/js/1.45b0cd3d.chunk.js",
+  "static/js/1.45b0cd3d.chunk.js.map": "/my-reads/static/js/1.45b0cd3d.chunk.js.map",
+  "runtime~main.js": "/my-reads/static/js/runtime~main.d3c91a85.js",
+  "runtime~main.js.map": "/my-reads/static/js/runtime~main.d3c91a85.js.map",
+  "static/css/main.eae7a4e2.chunk.css.map": "/my-reads/static/css/main.eae7a4e2.chunk.css.map",
+  "static/media/App.css": "/my-reads/static/media/arrow-back.20e8847d.svg",
+  "index.html": "/my-reads/index.html",
+  "precache-manifest.3a7d45724b2322f70c887b84ae713472.js": "/my-reads/precache-manifest.3a7d45724b2322f70c887b84ae713472.js",
+  "service-worker.js": "/my-reads/service-worker.js"
+}
